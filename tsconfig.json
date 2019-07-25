@@ -17,6 +17,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ng-tui-editor": [
+        "dist/ng-tui-editor"
+      ],
+      "ng-tui-editor/*": [
+        "dist/ng-tui-editor/*"
+      ]
+    }
   }
 }
