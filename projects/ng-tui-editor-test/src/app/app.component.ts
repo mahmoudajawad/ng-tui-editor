@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+
 import { NgTuiEditorComponent } from 'ng-tui-editor/public-api';
 
 @Component({
@@ -6,10 +8,20 @@ import { NgTuiEditorComponent } from 'ng-tui-editor/public-api';
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 	title = 'ng-tui-editor-test';
 
-	value: string = '';
+	form: FormGroup;
+
+	constructor(private formBuilder: FormBuilder) {}
+
+	ngOnInit(): void {
+		this.form = this.formBuilder.group({
+			editor1: ['# First Editor Data \n Goes here', Validators.required],
+			editor2: ['# Second Editor Data \n Goes here', Validators.required],
+			editor3: ['# Third Editor Data \n Goes here', Validators.required]
+		});
+	}
 
 	editorChange(editor: NgTuiEditorComponent) {
 		console.log(editor.getValue());
