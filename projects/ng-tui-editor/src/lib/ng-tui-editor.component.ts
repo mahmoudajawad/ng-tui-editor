@@ -12,7 +12,7 @@ import tuiEditor from 'tui-editor';
         multi: true
     }]
 })
-export class NgTuiEditorComponent implements OnInit, ControlValueAccessor {
+export class NgTuiEditorComponent implements ControlValueAccessor {
 
     onChange: (_: any) => void = (_: any) => {};
 	onTouched: () => void = () => {};
@@ -28,27 +28,25 @@ export class NgTuiEditorComponent implements OnInit, ControlValueAccessor {
 	@Output('change') private change: EventEmitter<NgTuiEditorComponent> = new EventEmitter();
 
 	constructor() {}
-	
-	ngOnInit() {
-		console.log('tui-edutitor value is:', this.value);
-		this.editor = new tuiEditor({
-			el: this.EditorElement.nativeElement,
-			initialValue: this.value,
-			initialEditType: this.initialEditType || 'wysiwyg',
-			previewStyle: this.previewStyle || 'vertical',
-			height: this.height || '300px',
-			events: ({
-				change: ($event) => {
-					this.writeValue(this.getMarkdown());
-					this.change.emit(this);
-				}
-			} as any)
-		});
-		this.EditorElement.nativeElement.querySelector('.tui-editor-contents').setAttribute('dir', this.dir);
-	}
 
     updateChanges(): void {
-        this.onChange(this.value);
+		this.onChange(this.value);
+		if (this.value && !this.editor) {
+			this.editor = new tuiEditor({
+				el: this.EditorElement.nativeElement,
+				initialValue: this.value,
+				initialEditType: this.initialEditType || 'wysiwyg',
+				previewStyle: this.previewStyle || 'vertical',
+				height: this.height || '300px',
+				events: ({
+					change: ($event) => {
+						this.writeValue(this.getMarkdown());
+						this.change.emit(this);
+					}
+				} as any)
+			});
+			this.EditorElement.nativeElement.querySelector('.tui-editor-contents').setAttribute('dir', this.dir);
+		}
     }
     writeValue(value: string): void {
         this.value = value;
