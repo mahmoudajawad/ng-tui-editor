@@ -10,6 +10,7 @@ import { NgTuiEditorComponent } from 'ng-tui-editor/public-api';
 })
 export class AppComponent implements OnInit {
 	title = 'ng-tui-editor-test';
+	showEditor: boolean = false;
 
 	form: FormGroup;
 
@@ -21,6 +22,9 @@ export class AppComponent implements OnInit {
 			editor2: ['# Second Editor Data \n Goes here', Validators.required],
 			editor3: ['# Third Editor Data \n Goes here', Validators.required]
 		});
+		setTimeout(() => {
+			this.showEditor = true;
+		}, 1000);
 	}
 
 	editorChange(editor: NgTuiEditorComponent) {
