@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
-import { NgTuiEditorComponent } from 'ng-tui-editor/public-api';
+import { NgTuiEditorComponent } from 'projects/ng-tui-editor/src/public-api';
 
 @Component({
 	selector: 'app-root',

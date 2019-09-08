@@ -56,7 +56,7 @@ export class NgTuiEditorComponent implements ControlValueAccessor, OnInit {
 		this.onChange(this.value);
     }
     writeValue(value: string): void {
-		if (value != this.value) {
+		if (value != this.editor.getValue()) {
 			this.editor.setValue(value);
 		}
         this.value = value;

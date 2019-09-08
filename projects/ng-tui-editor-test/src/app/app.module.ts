@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { NgTuiEditorModule } from 'ng-tui-editor';
-
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { NgTuiEditorModule } from 'projects/ng-tui-editor/src/public-api';
 
 @NgModule({
 	declarations: [
