@@ -19,7 +19,7 @@ export class NgTuiEditorComponent implements ControlValueAccessor, OnInit {
 	
 	private editor!: tuiEditor;
 	private EditorElement: ElementRef<HTMLDivElement>;
-	@ViewChild('tuiEditor') set EditorElementSetter(el: ElementRef) {
+	@ViewChild('tuiEditor', { static: true }) set EditorElementSetter(el: ElementRef) {
 		this.EditorElement = el;
 	}
 	@Input('initialEditType') private initialEditType: 'markdown' | 'wysiwyg';
@@ -27,7 +27,6 @@ export class NgTuiEditorComponent implements ControlValueAccessor, OnInit {
 	@Input('previewStyle') private previewStyle: 'vertical' | 'tab';
 	@Input('height') private height: string;
 	@Input('dir') private dir: 'ltr' | 'rtl' = 'ltr';
-	@Input('format') private format: 'markdown' | 'html' = 'markdown';
 	@Output('change') private change: EventEmitter<NgTuiEditorComponent> = new EventEmitter();
 
 	constructor() {}
@@ -42,10 +41,8 @@ export class NgTuiEditorComponent implements ControlValueAccessor, OnInit {
 			events: ({
 				change: ($event) => {
 					let value = this.getValue();
-					// if (value) {
 					this.writeValue(value);
 					this.change.emit(this);
-					// }
 				}
 			} as any)
 		});
@@ -69,18 +66,11 @@ export class NgTuiEditorComponent implements ControlValueAccessor, OnInit {
         this.onTouched = fn;
     }
 
-	public getMarkdown(): string {
-		return this.editor.getMarkdown();
-	}
 	public getHTML(): string {
 		return this.editor.getHtml();
 	}
 	public getValue(): string {
-		if (this.format == 'markdown') {
-			return this.getMarkdown();
-		} else if (this.format == 'html') {
-			return this.getHTML();
-		}
+		return this.editor.getMarkdown();
 	}
 
 }
